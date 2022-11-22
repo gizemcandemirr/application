@@ -1,7 +1,11 @@
-import { Text, View } from "react-native";
+import { Text, View, Button } from "react-native";
 
-const ViewScreen = () => {
-  return <Text>Hello View</Text>;
+const ViewScreen = ({ navigation }) => {
+  return (
+    <View className="flex items-center justify-center text-red-500">
+      <Button onPress={() => navigation.goBack()} title="Go back home" />
+    </View>
+  );
 };
 
 export default ViewScreen;
