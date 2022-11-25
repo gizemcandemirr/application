@@ -26,9 +26,8 @@ export default function App() {
     <Provider store={store}>
       <TailwindProvider>
         <NavigationContainer>
-          <Drawer.Navigator initialRouteName="Home">
-            <Drawer.Screen name="LoginPage" component={LoginPage} />
-
+          <Drawer.Navigator initialRouteName="Login">
+            <Drawer.Screen name="Login" component={LoginPage} />
             <Drawer.Screen name="Home" component={HomeScreen} />
             <Drawer.Screen name="Views" component={ViewScreen} />
           </Drawer.Navigator>
