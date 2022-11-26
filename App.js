@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 
 import LoginPage from "./src/screens/LoginPage";
 import HomeScreen from "./src/screens/HomeScreen";
+import DetailPage from "./src/screens/DetailPage";
 import ViewScreen from "./src/screens/ViewScreen";
 
 import { Provider } from "react-redux";
@@ -28,8 +29,9 @@ export default function App() {
         <NavigationContainer>
           <Drawer.Navigator initialRouteName="Login">
             <Drawer.Screen name="Login" component={LoginPage} />
-            <Drawer.Screen name="Home" component={HomeScreen} />
-            <Drawer.Screen name="Views" component={ViewScreen} />
+            <Drawer.Screen name="Anasayfa" component={HomeScreen} />
+            <Drawer.Screen name="Projeler" component={DetailPage} />
+            <Drawer.Screen name="Gösterme" component={ViewScreen} />
           </Drawer.Navigator>
         </NavigationContainer>
       </TailwindProvider>
