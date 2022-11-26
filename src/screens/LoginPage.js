@@ -1,6 +1,7 @@
 import { TextInput, Text, View, Button, Alert } from "react-native";
 import { useForm, useController } from "react-hook-form";
 import cn from "classnames";
+import { useLoginUserMutation } from "../hooks/apiSlice";
 
 const Input = ({ name, control, errors }) => {
   const { field } = useController({ control, name, errors });
@@ -23,32 +24,38 @@ function LoginPage() {
     control,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => Alert.alert(JSON.stringify(data));
+  const [loginUser, { isSuccess }] = useLoginUserMutation({
+    onSuccess: () => {
+      Alert.alert("Giriş yapıldı");
+    },
+  });
+
+  const onSubmit = (data) => loginUser(data);
 
   return (
     <View>
       <View className="flex flex-row justify-between mx-4 my-4">
         <Text className="text-lg font-semibold">Login</Text>
         <View className="flex flex-col">
-          {errors.name && (
+          {errors.username && (
             <Text className="text-red-500">* Name is required</Text>
           )}
-          {errors.email && (
+          {errors.password && (
             <Text className="text-red-500">* Email is required</Text>
           )}
         </View>
       </View>
 
-      <Text className="mx-4">Name</Text>
+      <Text className="mx-4">Email {isSuccess ? "başarılı" : "değil"}</Text>
       <Input
-        {...register("name", { required: true })}
+        {...register("username", { required: true })}
         control={control}
         errors={errors}
       />
 
-      <Text className="mx-4">Email</Text>
+      <Text className="mx-4">Password</Text>
       <Input
-        {...register("email", { required: true })}
+        {...register("password", { required: true })}
         control={control}
         errors={errors}
       />
