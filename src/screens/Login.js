@@ -17,7 +17,7 @@ const Input = ({ name, control, errors }) => {
   );
 };
 
-function LoginPage() {
+function Login() {
   const {
     register,
     handleSubmit,
@@ -66,4 +66,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default Login;

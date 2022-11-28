@@ -8,7 +8,6 @@ export const productsApi = createApi({
   endpoints: (builder) => ({
     loginUser: builder.mutation({
       query: (body) => {
-        console.log(body);
         return {
           url: "/auth",
           method: "post",

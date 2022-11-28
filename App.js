@@ -2,36 +2,27 @@ import { TailwindProvider } from "tailwindcss-react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
-import { QueryClient, QueryClientProvider } from "react-query";
-
-import LoginPage from "./src/screens/LoginPage";
+import Login from "./src/screens/Login";
 import HomeScreen from "./src/screens/HomeScreen";
-import DetailPage from "./src/screens/DetailPage";
-import ViewScreen from "./src/screens/ViewScreen";
+import Projects from "./src/screens/Projects";
+import Detail from "./src/screens/Detail";
 
 import { Provider } from "react-redux";
 import { store } from "./src/store/store";
 
 const Drawer = createDrawerNavigator();
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-      retry: 1,
-    },
-  },
-});
 export default function App() {
   return (
     <Provider store={store}>
       <TailwindProvider>
         <NavigationContainer>
           <Drawer.Navigator initialRouteName="Login">
-            <Drawer.Screen name="Login" component={LoginPage} />
+            <Drawer.Screen name="Login" component={Login} options={{ title: 'LoginPage' }} />
             <Drawer.Screen name="Anasayfa" component={HomeScreen} />
-            <Drawer.Screen name="Projeler" component={DetailPage} />
-            <Drawer.Screen name="Gösterme" component={ViewScreen} />
+            <Drawer.Screen name="Projeler" component={Projects} />
+            <Drawer.Screen name="Detail" component={Detail} />
+
           </Drawer.Navigator>
         </NavigationContainer>
       </TailwindProvider>

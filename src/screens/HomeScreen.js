@@ -4,7 +4,7 @@ const HomeScreen = ({ navigation }) => {
   return (
     <View className="flex items-center justify-center">
       <Button
-        onPress={() => navigation.navigate("/ViewScreen")}
+        onPress={() => navigation.navigate('Login', { screen: 'Login' })}
         title="Go to notifications"
       />
     </View>
