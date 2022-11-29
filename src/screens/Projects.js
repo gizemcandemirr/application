@@ -47,16 +47,15 @@ const wait = (timeout) => {
 const Projects = () => {
     const [selectedId, setSelectedId] = useState(null);
     const navigation = useNavigation();
-
     const renderItem = ({ item }) => {
         const backgroundColor = item.id === selectedId ? "#6e3b6e" : "#f9c2ff";
         const color = item.id === selectedId ? "white" : "black";
 
         function NavigateToDetail(id) {
             setSelectedId(id);
+            const findItem = DATA.find((item) => item.id === id)
             navigation.navigate('Detail', {
-                screen: 'Detail',
-                params: { user: 'jane' },
+                items: findItem,
             });
         }
 

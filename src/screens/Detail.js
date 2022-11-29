@@ -3,9 +3,9 @@ import {
   Text
 } from "react-native";
 
-const Detail = ({ user }) => {
+const Detail = ({ route }) => {
   return (
-    <View><Text>Detay  </Text></View>
+    <View><Text>{route.params.items.title} </Text></View>
   )
 }
 

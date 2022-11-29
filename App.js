@@ -22,7 +22,6 @@ export default function App() {
             <Drawer.Screen name="Anasayfa" component={HomeScreen} />
             <Drawer.Screen name="Projeler" component={Projects} />
             <Drawer.Screen name="Detail" component={Detail} />
-
           </Drawer.Navigator>
         </NavigationContainer>
       </TailwindProvider>

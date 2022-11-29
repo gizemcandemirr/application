@@ -17,18 +17,14 @@ const Input = ({ name, control, errors }) => {
   );
 };
 
-function Login() {
+const Login = () => {
   const {
     register,
     handleSubmit,
     control,
     formState: { errors },
   } = useForm();
-  const [loginUser, { isSuccess }] = useLoginUserMutation({
-    onSuccess: () => {
-      Alert.alert("Giriş yapıldı");
-    },
-  });
+  const [loginUser, { isSuccess }] = useLoginUserMutation();
 
   const onSubmit = (data) => loginUser(data);
 
