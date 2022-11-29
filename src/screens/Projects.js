@@ -9,33 +9,49 @@ import {
 import { useNavigation } from '@react-navigation/native';
 
 import ChevronRight from "../components/Icons/ChevronRight";
+import classNames from "classnames";
 
 const DATA = [
     {
-        id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-        title: "First Item",
+        id: "bd7acbea-c1b1-46c2-aed5-3ad53abb2801",
+        title: "Ray",
     },
     {
-        id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-        title: "Second Item",
+        id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f02",
+        title: "Kasa",
     },
     {
-        id: "58694a0f-3da1-471f-bd96-145571e29d72",
-        title: "Third Item",
+        id: "58694a0f-3da1-471f-bd96-145571e29d03",
+        title: "Motor",
     },
     {
-        id: "58694a0f-3da1-471f-bd96-145571e29d74",
-        title: "Fourth Item",
+        id: "58694a0f-3da1-471f-bd96-145571e29d04",
+        title: "Pano",
+    },
+    {
+        id: "58694a0f-3da1-471f-bd96-145571e29d05",
+        title: "Regülator",
+    },
+    {
+        id: "58694a0f-3da1-471f-bd96-145571e29d06",
+        title: "Süspansiyon & Halat",
+    },
+    {
+        id: "58694a0f-3da1-471f-bd96-145571e29d07",
+        title: "Kabin",
+    },
+    {
+        id: "58694a0f-3da1-471f-bd96-145571e29d08",
+        title: "Ağırlık",
     },
 ];
 
-const Item = ({ item, onPress, backgroundColor, textColor }) => (
+const Item = ({ item, onPress, selectedId }) => (
     <TouchableOpacity
         onPress={onPress}
-        style={[backgroundColor]}
-        className="flex flex-row justify-between items-center"
+        className={classNames('flex flex-row justify-between items-center p-4 my-2 mx-4 rounded-xl bg-gray-200 ', { 'bg-gray-400': selectedId })}
     >
-        <Text style={[textColor]}>{item.title}</Text>
+        <Text>{item.title}</Text>
         <ChevronRight className="w-6 h-6 text-gray-500" />
     </TouchableOpacity>
 );
@@ -47,6 +63,7 @@ const wait = (timeout) => {
 const Projects = () => {
     const [selectedId, setSelectedId] = useState(null);
     const navigation = useNavigation();
+
     const renderItem = ({ item }) => {
         const backgroundColor = item.id === selectedId ? "#6e3b6e" : "#f9c2ff";
         const color = item.id === selectedId ? "white" : "black";
@@ -64,7 +81,7 @@ const Projects = () => {
                 item={item}
                 onPress={() => NavigateToDetail(item.id)}
                 backgroundColor={{ backgroundColor }}
-                textColor={{ color }}
+                selectedId={item.id === selectedId}
             />
         );
     };

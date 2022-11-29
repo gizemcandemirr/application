@@ -5,7 +5,7 @@ import {
 
 const Detail = ({ route }) => {
   return (
-    <View><Text>{route.params.items.title} </Text></View>
+    <View className="flex flex-row p-4"><Text>{route.params.items.title} </Text></View>
   )
 }
 
