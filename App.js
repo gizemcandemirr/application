@@ -13,6 +13,7 @@ import { store } from "./src/store/store";
 const Drawer = createDrawerNavigator();
 
 export default function App() {
+
   return (
     <Provider store={store}>
       <TailwindProvider>
