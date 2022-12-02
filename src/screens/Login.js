@@ -1,18 +1,24 @@
-import { TextInput, Text, View, Button, Image } from "react-native";
+import { TextInput, Text, View, Button, Image, TouchableOpacity } from "react-native";
 import { useForm, useController } from "react-hook-form";
 import cn from "classnames";
 import { useLoginUserMutation } from "../hooks/apiSlice";
 
-const Input = ({ name, control, errors }) => {
+import ChevronRight from '../components/Icons/ChevronRight'
+import Eye from '../components/Icons/Eye'
+import { useState } from "react";
+
+const Input = ({ name, control, errors, placeholder, type }) => {
   const { field } = useController({ control, name, errors });
 
   return (
     <View
-      className={cn("border-2 my-4 mx-4 border-gray-300 p-4 rounded-xl", {
-        "border-red-500": !field.value,
-      })}
+      className={cn("border-2 my-2 mx-4 border-gray-100 p-4 rounded-xl flex flex-row justify-between ")}
     >
-      <TextInput value={field.value} onChangeText={field.onChange} />
+      <TextInput value={field.value} onChangeText={field.onChange} placeholder={placeholder} type={type} />
+      {type === "password" && <TouchableOpacity>
+        <Eye className="w-6 h-6 text-gray-200 cursor-pointer" />
+      </TouchableOpacity>}
+
     </View>
   );
 };
@@ -24,33 +30,38 @@ const Login = () => {
     control,
     formState: { errors },
   } = useForm();
-  const [loginUser, { isSuccess }] = useLoginUserMutation();
-
-  const onSubmit = (data) => loginUser(data);
+  const [loginUser] = useLoginUserMutation();
+  const [auth, setAuth] = useState(false);
+  const onSubmit = (data) => setAuth(!auth);
 
   return (
-    <View>
+    <View className="bg-white h-full">
       <View className="flex flex-row justify-between mx-4 my-4">
         <View className="flex flex-col">
           {errors.username && (
-            <Text className="text-red-500">* Name is required</Text>
+            <Text className="">* Name is required</Text>
           )}
           {errors.password && (
-            <Text className="text-red-500">* Email is required</Text>
+            <Text className="">* Email is required</Text>
           )}
         </View>
       </View>
 
       <View className="flex flex-row justify-center items-center">
-        <Image source={"/login.png"} />
+        <Image source={require('../components/images/login.png')}
+          style={{ width: 120, height: 200 }}
+        />
       </View>
-      <View className="flex flex-row justify-center items-center">
-        <Image source={"/logo.png"} />
+      <View className="flex flex-row justify-center items-center my-4">
+        <Image source={require('../components/images/logo.png')}
+          style={{ width: 230, height: 40 }}
+        />
       </View>
       <View>
         <Input
           {...register("username", { required: true })}
           control={control}
+          type="text"
           placeholder="Kullanıcı Adı"
           errors={errors}
         />
@@ -63,13 +74,22 @@ const Login = () => {
           errors={errors}
         />
         <View className="flex flex-row justify-between">
-          <Button>Şifremi Unuttum</Button>
+          <Text></Text>
+          <TouchableOpacity >
+            <Text className="text-xs pr-4 text-gray-700">Şifremi Unuttum</Text>
+          </TouchableOpacity>
         </View>
       </View>
 
-      <View className="border-2 bg-blue-600 text-white rounded-xl mx-4 my-4 flex flex-row justify-center items-center">
-        <Button title="Giriş Yap" onPress={handleSubmit(onSubmit)} />
-      </View>
+      <TouchableOpacity className="mt-4 rounded-xl bg-[#0476D9]" style={{
+        alignSelf: "center",
+        overflow: 'hidden',
+      }}>
+        <View className="p-4">
+          <Text className="text-sm px-24 text-white">Giriş Yap</Text>
+        </View>
+      </TouchableOpacity>
+
     </View>
   );
 }
