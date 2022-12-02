@@ -1,23 +1,28 @@
 import { TextInput, Text, View, Button, Image, TouchableOpacity } from "react-native";
 import { useForm, useController } from "react-hook-form";
-import cn from "classnames";
-import { useLoginUserMutation } from "../hooks/apiSlice";
-
-import ChevronRight from '../components/Icons/ChevronRight'
-import Eye from '../components/Icons/Eye'
 import { useState } from "react";
+import cn from "classnames";
+
+import { useLoginUserMutation } from "../hooks/apiSlice";
+import Eye from '../components/Icons/Eye'
 
 const Input = ({ name, control, errors, placeholder, type }) => {
   const { field } = useController({ control, name, errors });
+  const [showPassword, setShowPassword] = useState(true);
 
+  function toggleShowPassword() {
+    setShowPassword(!showPassword);
+  }
   return (
     <View
-      className={cn("border-2 my-2 mx-4 border-gray-100 p-4 rounded-xl flex flex-row justify-between ")}
+      className={cn("border-2 py-4 px-8 border-gray-100 mb-4 rounded-xl flex flex-row justify-between ")}
     >
-      <TextInput value={field.value} onChangeText={field.onChange} placeholder={placeholder} type={type} />
-      {type === "password" && <TouchableOpacity>
-        <Eye className="w-6 h-6 text-gray-200 cursor-pointer" />
-      </TouchableOpacity>}
+      <TextInput value={field.value} onChangeText={field.onChange} placeholder={placeholder} type={type}
+       secureTextEntry={showPassword} className="w-full" />
+      {type === "password" && 
+      (<TouchableOpacity onPress={toggleShowPassword}>
+        <Eye className="w-6 h-6  text-gray-200" />
+      </TouchableOpacity>)}
 
     </View>
   );
@@ -36,7 +41,7 @@ const Login = () => {
 
   return (
     <View className="bg-white h-full">
-      <View className="flex flex-row justify-between mx-4 my-4">
+      <View className="flex flex-row justify-between mx-4 my-8">
         <View className="flex flex-col">
           {errors.username && (
             <Text className="">* Name is required</Text>
@@ -57,7 +62,7 @@ const Login = () => {
           style={{ width: 230, height: 40 }}
         />
       </View>
-      <View>
+      <View className="p-3">
         <Input
           {...register("username", { required: true })}
           control={control}

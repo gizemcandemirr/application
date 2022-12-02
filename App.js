@@ -11,13 +11,14 @@ import Detail from "./src/screens/Detail";
 import { Provider } from "react-redux";
 import { store } from "./src/store/store";
 
+import useAuth from "./src/hooks/useAuth.js";
+
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
 
 function Root() {
   return (
-    <Drawer.Navigator initialRouteName="Login">
-      <Drawer.Screen name="Login" component={Login} />
+    <Drawer.Navigator initialRouteName="Anasayfa">
       <Drawer.Screen name="Anasayfa" component={HomeScreen} />
       <Drawer.Screen name="Projeler" component={Projects} />
       <Drawer.Screen name="Detail" component={Detail} />
@@ -25,18 +26,29 @@ function Root() {
   );
 }
 export default function App() {
+  const isAuth = useAuth({ user: true });
 
   return (
     <Provider store={store}>
       <TailwindProvider>
         <NavigationContainer>
-        <Stack.Navigator>
-        <Stack.Screen
-          name="Root"
-          component={Root}
-          options={{ headerShown: false }}
-        />
-      </Stack.Navigator>
+          <Stack.Navigator>
+
+            {isAuth ? (
+              <Stack.Screen
+                name="Root"
+                component={Root}
+                options={{ headerShown: false }}
+              />
+            ) :
+              <Stack.Screen
+                name="Login"
+                component={Login}
+                options={{ headerShown: false }}
+              />
+            }
+
+          </Stack.Navigator>
         </NavigationContainer>
       </TailwindProvider>
     </Provider>
