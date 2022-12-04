@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
 
-const useAuth = ({ user }) => {
+function useAuth({ user }) {
+    console.log(user)
     const [isAuth, setIsAuth] = useState(false);
 
     useEffect(() => {
-        if (user) {
-            return setIsAuth(!isAuth);
-        }
+        setIsAuth(false)
     }, [user])
 
     return isAuth;
 }
-
 export default useAuth;

@@ -1,10 +1,11 @@
 import { TextInput, Text, View, Button, Image, TouchableOpacity } from "react-native";
 import { useForm, useController } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import cn from "classnames";
 
 import { useLoginUserMutation } from "../hooks/apiSlice";
 import Eye from '../components/Icons/Eye'
+import useAuth from "../hooks/useAuth";
 
 const Input = ({ name, control, errors, placeholder, type }) => {
   const { field } = useController({ control, name, errors });
@@ -18,11 +19,11 @@ const Input = ({ name, control, errors, placeholder, type }) => {
       className={cn("border-2 py-4 px-8 border-gray-100 mb-4 rounded-xl flex flex-row justify-between ")}
     >
       <TextInput value={field.value} onChangeText={field.onChange} placeholder={placeholder} type={type}
-       secureTextEntry={showPassword} className="w-full" />
-      {type === "password" && 
-      (<TouchableOpacity onPress={toggleShowPassword}>
-        <Eye className="w-6 h-6  text-gray-200" />
-      </TouchableOpacity>)}
+        secureTextEntry={type === 'password'} className="w-full" />
+      {type === "password" &&
+        (<TouchableOpacity onPress={toggleShowPassword}>
+          <Eye className="w-6 h-6  text-gray-200" />
+        </TouchableOpacity>)}
 
     </View>
   );
@@ -36,8 +37,14 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   const [loginUser] = useLoginUserMutation();
-  const [auth, setAuth] = useState(false);
-  const onSubmit = (data) => setAuth(!auth);
+  const [user, setUser] = useState();
+  const onSubmit = (data) => setUser(data);
+
+  useEffect(() => {
+    if (user) {
+      useAuth(user)
+    }
+  }, [user])
 
   return (
     <View className="bg-white h-full">
@@ -89,7 +96,8 @@ const Login = () => {
       <TouchableOpacity className="mt-4 rounded-xl bg-[#0476D9]" style={{
         alignSelf: "center",
         overflow: 'hidden',
-      }}>
+      }}
+        onPress={handleSubmit(onSubmit)}>
         <View className="p-4">
           <Text className="text-sm px-24 text-white">Giriş Yap</Text>
         </View>
